@@ -13,9 +13,9 @@ const pixel_sorting = p => {
 		myShader = p.createShader(vert, frag)
 		p.shader(myShader)
 
-		let url = window.prompt('Please enter an image link:')
+		let url = window.prompt('請輸入影像連結：')
 		p.loadImage(url, p.putImage, () => {
-			alert('Load image failed, replace by default image...')
+			alert('載入影像失敗，使用預設圖片⋯⋯')
 			p.loadImage('default_image.jpg', p.putImage)
 		})
 	}
