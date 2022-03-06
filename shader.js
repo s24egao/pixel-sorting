@@ -31,7 +31,7 @@ void main() {
 	st.y = 1.0 - st.y;
 	
 	vec4 color = texture2D(mainTex, st);
-	vec2 dir = vec2(cos(angle), sin(angle)) * 1.39;
+	vec2 dir = vec2(cos(angle), sin(angle)) * 1.45;
 	
 	vec2 p1, p2;
 	vec4 pixels[10];

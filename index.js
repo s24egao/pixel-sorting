@@ -22,32 +22,31 @@ const pixel_sorting = p => {
 
 	p.putImage = data => {
 		img = data
-		let aspect = data.width / data.height
-		p.resizeCanvas(500 * aspect, 500)
+		if(p.windowWidth > 600) p.resizeCanvas(500 * data.width / data.height, 500)
+		else p.resizeCanvas(350, 350 * data.height / data.width)
 		myShader.setUniform('resolution', [p.width * p.pixelDensity(), p.height * p.pixelDensity()])
+		p.pixelSort()
 	}
 
 	p.draw = () => {
 		if(!img) return
+		if(p.movedX == 0 && p.movedY == 0 && !pause) return
+		p.pixelSort()
+	}
+
+	p.pixelSort = () => {
 		let angle = p.atan2(p.height / 2 - p.mouseY, p.width / 2 - p.mouseX)
-		let threshold = p.map(p.createVector(p.mouseX, p.mouseY)
-												.dist(p.createVector(p.width / 2, p.height / 2)), 0, p.width / 1.2, 1, 0)
+		let threshold = p.map(p.createVector(p.mouseX, p.mouseY).dist(p.createVector(p.width / 2, p.height / 2)), 0, p.width / 1.2, 1, 0)
 		myShader.setUniform('mainTex', img)
 		myShader.setUniform('threshold', threshold)
 		myShader.setUniform('angle', angle)
 		myShader.setUniform('inverse', inverse)
 		p.rect(-p.width / 2, -p.height / 2, p.width, p.height)
-		p.noLoop()
 	}
 
-	 p.mouseClicked = () => {
+	p.mousePressed = () => {
 		inverse = !inverse
 		pause = false
-		p.loop()
-	}
-
-	p.mouseMoved = () => {
-		if(pause) return
 		p.loop()
 	}
 
