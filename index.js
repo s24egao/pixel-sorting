@@ -30,7 +30,8 @@ const pixel_sorting = p => {
 
 	p.draw = () => {
 		if(!img) return
-		if(p.movedX == 0 && p.movedY == 0 && !pause) return
+		if(p.movedX == 0 && p.movedY == 0) return
+		if(pause) return
 		p.pixelSort()
 	}
 
@@ -47,7 +48,6 @@ const pixel_sorting = p => {
 	p.mousePressed = () => {
 		inverse = !inverse
 		pause = false
-		p.loop()
 	}
 
 	p.keyPressed = () => {
